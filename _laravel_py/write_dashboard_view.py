@@ -1,0 +1,30 @@
+import os
+def writeDashboardView(nameView,nombre):
+    
+    fileName = "../resources/views/livewire/"+nameView+"/"+nameView+"-dashboard.blade.php"
+    os.makedirs(os.path.dirname(fileName), exist_ok=True)
+    file = open(fileName, "w")
+
+    file.write('<div>\n')
+    file.write('    <x-slot name="header">\n')
+    file.write('        <div class="font-semibold text-xl text-gray-800 leading-tight">\n')
+    file.write('            '+nombre+'\n')
+    file.write('        </div>\n')
+    file.write('    </x-slot>\n')
+    file.write('    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">\n')
+    file.write('        <div class="w-full flex justify-end space-x-2">\n')
+    file.write('            <a href="{{ route(\''+nameView+'.create\') }}"\n')
+    file.write('                class="my-2 border-2 border-green-500 text-green-500 bg-white flex items-center rounded-full hover:bg-green-500 hover:text-white">\n')
+    file.write('                <svg class="w-8 h-8 m-2" viewBox="0 0 20 20" fill="currentColor">\n')
+    file.write('                    <path fill-rule="evenodd"\n')
+    file.write('                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"\n')
+    file.write('                        clip-rule="evenodd" />\n')
+    file.write('                </svg>\n')
+    file.write('            </a>\n')
+    file.write('        </div>\n')
+    file.write('        <div class="m-5">\n')
+    file.write('            <livewire:'+nameView+'.'+nameView+'-data-table />\n')
+    file.write('        </div>\n')
+    file.write('    </div>\n')
+    file.write('</div>\n')
+    file.close()

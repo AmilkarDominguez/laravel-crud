@@ -1,0 +1,47 @@
+from datetime import datetime
+import os
+def writeMigration(name):
+
+    current_time = datetime.now().strftime("%Y_%m_%d_%H%M%S")
+    
+    fileName = "../database/migrations/"+current_time+"_create_"+name+"_table.php"
+    os.makedirs(os.path.dirname(fileName), exist_ok=True)
+    file = open(fileName, "w")
+
+    file.write("<?php\n")
+    file.write("\n")
+    file.write("use Illuminate\Database\Migrations\Migration;\n")
+    file.write("use Illuminate\Database\Schema\Blueprint;\n")
+    file.write("use Illuminate\Support\Facades\Schema;\n")
+    file.write("\n")
+    file.write("return new class extends Migration\n")
+    file.write("{\n")
+    file.write("    /**\n")
+    file.write("     * Run the migrations.\n")
+    file.write("     *\n")
+    file.write("     * @return void\n")
+    file.write("     */\n")
+    file.write("    public function up()\n")
+    file.write("    {\n")
+    file.write("        Schema::create('"+name+"', function (Blueprint $table) {\n")
+    file.write("            $table->id();\n")
+    file.write("            $table->string('name')->nullable();\n")
+    file.write("            $table->string('description')->nullable();\n")
+    file.write("            $table->enum('state', ['ACTIVE', 'INACTIVE', 'DELETED'])->default('ACTIVE');\n")
+    file.write("            $table->uuid('slug')->unique();\n")
+    file.write("            $table->timestamps();\n")
+    file.write("        });\n")
+    file.write("    }\n")
+    file.write("\n")
+    file.write("    /**\n")
+    file.write("     * Reverse the migrations.\n")
+    file.write("     *\n")
+    file.write("     * @return void\n")
+    file.write("     */\n")
+    file.write("    public function down()\n")
+    file.write("    {\n")
+    file.write("        Schema::dropIfExists('genders');\n")
+    file.write("    }\n")
+    file.write("};\n")
+
+    file.close()
